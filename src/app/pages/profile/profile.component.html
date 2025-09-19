@@ -1,0 +1,56 @@
+<div id="user-profile-page" *ngIf="currentUser">
+  <div id="profile-details">
+    <div id="profile-info">
+      <img [src]="currentUser.picture || '/assets/img/placeholder.png'" [alt]="currentUser.name">
+      <h2>{{ currentUser.name }}</h2>
+      <p>{{ currentUser.email }}</p>
+      <button id="create" (click)="navigateToCreate()">
+        <span class="material-symbols-outlined">add</span>
+        Create Listing
+      </button>
+      <button id="edit-profile-btn" (click)="toggleEditMode()">
+        <span class="material-symbols-outlined">edit</span>
+        Edit Profile
+      </button>
+      <button id="logout-btn" (click)="logout()">
+        <span class="material-symbols-outlined">logout</span>
+        Log Out
+      </button>
+    </div>
+
+    <div id="profile-listings">
+      <h2>My Listings</h2>
+      <ul *ngIf="userListings.length > 0; else noListings">
+        <li *ngFor="let listing of userListings" class="profile-listing">
+          <img [src]="getMainImage(listing)" [alt]="listing.title" (click)="navigateToListing(listing.id)">
+          <div class="listing-info">
+            <h3 (click)="navigateToListing(listing.id)" class="profile-listing-link">{{ listing.title }}</h3>
+            <p>€{{ listing.price }}</p>
+            <p>{{ listing.category }}</p>
+            <p>{{ listing.location }}</p>
+          </div>
+        </li>
+      </ul>
+      <ng-template #noListings>
+        <p>You haven't created any listings yet.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!currentUser" class="no-user">
+  <h1>No User Logged In</h1>
+  <div id="g_id_onload"
+       data-client_id="763140433455-9tudkmcpnbec0dv4ndej56r1kho6hd3o.apps.googleusercontent.com"
+       data-callback="onGoogleSignIn"
+       data-auto_prompt="false">
+  </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-shape="rectangular"
+       data-theme="outline"
+       data-text="sign_in_with"
+       data-size="large"
+       data-logo_alignment="left">
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div id="listings-page">
+  <div id="tools">
+    <div id="filter-container">
+      <div
+        *ngFor="let filter of filters"
+        class="filter-option"
+        [class.selected]="filter.selected"
+        (click)="selectFilter(filter)">
+        <span class="material-symbols-outlined">{{ filter.icon }}</span>
+        <span>{{ filter.label }}</span>
+      </div>
+    </div>
+    <div id="search-bar">
+      <input
+        type="text"
+        id="search"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchInput()"
+        placeholder="Search listings...">
+    </div>
+  </div>
+
+  <div id="sort-full">
+    <select id="location-select" [(ngModel)]="selectedLocation" (change)="onLocationChange()">
+      <option value="">Select a city</option>
+      <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+    </select>
+    <select id="sort" [(ngModel)]="selectedSort" (change)="onSortChange()">
+      <option value="date_desc">Newest First</option>
+      <option value="date_asc">Oldest First</option>
+      <option value="price_asc">Price Low to High</option>
+      <option value="price_desc">Price High to Low</option>
+      <option value="distance">Distance</option>
+    </select>
+  </div>
+
+  <div id="listing-list">
+    <div *ngIf="loading" class="loading">Loading listings...</div>
+    <div *ngIf="!loading && listings.length === 0" class="no-listings">No listings found</div>
+    <ul *ngIf="!loading && listings.length > 0">
+      <li *ngFor="let listing of listings" (click)="navigateToListing(listing.id)" [class.promoted]="listing.isPromoted">
+        <div>
+          <img [src]="getMainImage(listing)" [alt]="listing.title" *ngIf="listing.picture1">
+          <div *ngIf="!listing.picture1" class="no-image">No Image</div>
+          <h3>{{ listing.title }}</h3>
+          <p class="price">€{{ listing.price }}</p>
+          <p class="category">{{ listing.category }}</p>
+          <p class="location">{{ listing.location }}</p>
+          <div class="listing-meta">
+            <div>
+              <span class="material-symbols-outlined">schedule</span>
+              {{ formatDate(listing.createdAt) }}
+            </div>
+          </div>
+          <div *ngIf="listing.isPromoted" class="promoted-badge">Promoted</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>

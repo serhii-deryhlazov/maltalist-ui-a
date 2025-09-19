@@ -1,0 +1,26 @@
+<header class="navbar">
+  <nav>
+    <a routerLink="/" class="logo-link">
+      <img src="/assets/img/logo.png" alt="MaltaListings" class="logo">
+    </a>
+    <a routerLink="/profile" *ngIf="currentUser; else loginButton" class="profile-link">
+      <span class="material-symbols-outlined">account_circle</span>
+      My Profile
+    </a>
+    <ng-template #loginButton>
+      <div id="g_id_onload"
+           data-client_id="763140433455-9tudkmcpnbec0dv4ndej56r1kho6hd3o.apps.googleusercontent.com"
+           data-callback="onGoogleSignIn"
+           data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="rectangular"
+           data-theme="outline"
+           data-text="sign_in_with"
+           data-size="large"
+           data-logo_alignment="left">
+      </div>
+    </ng-template>
+  </nav>
+</header>

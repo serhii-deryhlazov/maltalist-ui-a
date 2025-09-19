@@ -1,0 +1,63 @@
+<div class="create-listing-container">
+  <h2>Create New Listing</h2>
+  <form (ngSubmit)="onSubmit()" #listingForm="ngForm">
+    <div class="form-wrapper">
+      <div class="form-fields">
+        <label for="name">Title:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="listing.name" required #name="ngModel">
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" [(ngModel)]="listing.description" required #description="ngModel"></textarea>
+
+        <label for="price">Price (EUR):</label>
+        <input type="number" id="price" name="price" [(ngModel)]="listing.price" step="0.01" min="0" required #price="ngModel">
+
+        <label for="category">Category:</label>
+        <select id="category" name="category" [(ngModel)]="listing.category" required #category="ngModel">
+          <option value="">Select a category</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Vehicles">Vehicles</option>
+          <option value="Real Estate">Real Estate</option>
+          <option value="Sports&Hobby">Sports&Hobby</option>
+          <option value="Books">Books</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="location">Location:</label>
+        <select id="location" name="location" [(ngModel)]="listing.location" required #location="ngModel">
+          <option value="">Select a city</option>
+          <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+        </select>
+
+        <button type="submit" [disabled]="!listingForm.form.valid || isSubmitting">
+          {{ isSubmitting ? 'Creating...' : 'Create Listing' }}
+        </button>
+        <div id="form-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      </div>
+
+      <div class="picture-upload-section">
+        <label>Pictures (up to 10):</label>
+        <div id="picture-inputs">
+          <div *ngFor="let i of pictureSlots; let index = index" class="picture-upload">
+            <input
+              type="file"
+              [id]="'picture-' + index"
+              [name]="'picture-' + index"
+              accept="image/*"
+              (change)="onFileSelected($event, index)"
+              style="display: none;">
+            <div
+              class="picture-preview"
+              [class.has-image]="selectedFiles[index]"
+              (click)="triggerFileInput(index)">
+              <img *ngIf="selectedFiles[index]" [src]="previewUrls[index]" alt="Preview">
+              <span *ngIf="!selectedFiles[index]" class="material-symbols-outlined">add_photo_alternate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

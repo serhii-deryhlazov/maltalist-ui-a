@@ -1,0 +1,143 @@
+/* General Reset & Base */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6fa;
+    color: #0d2e58;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+strong {
+    color: #004779;
+}
+
+.logo {
+    width: auto;
+    height: 40px;
+}
+
+/* Navbar */
+.navbar {
+    background: #f4f6fa;
+    margin-top: 25px;
+    width: 90%;
+    padding-left: 5%;
+}
+.navbar nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    padding: 0 16px;
+    height: 60px;
+}
+.navbar a {
+    color: #034d88;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: background 0.18s, color 0.18s;
+    display: flex;
+    align-items: anchor-center;
+    gap: 3px;
+}
+.navbar a:hover, .navbar a.active {
+    background: #034d88;
+    color: #f4f6fa;
+}
+
+#home, #home:hover, #home.active {
+    background: none;
+}
+
+#nouser
+{
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 50px;
+}
+
+/* Main Content */
+#content {
+    flex: 1 0 auto;
+    width: 90%;
+    margin: 12px auto 0 auto;
+    padding: 24px 24px 40px 24px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+    min-height: 400px;
+}
+
+/* Footer */
+.footer {
+    color: #034d88;
+    text-align: center;
+    padding: 18px 10px 12px 10px;
+    font-size: 0.98rem;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+    margin-top: 40px;
+    border-radius: 0 0 12px 12px;
+}
+.footer p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+    .navbar nav {
+        gap: 12px;
+        height: 48px;
+        font-size: 1rem;
+    }
+    #content {
+        max-width: 98vw;
+        padding: 12px 4vw 24px 4vw;
+        border-radius: 10px;
+        margin-top: 16px;
+        min-height: 250px;
+    }
+    .footer {
+        font-size: 0.92rem;
+        padding: 12px 4px 8px 4px;
+        border-radius: 0 0 8px 8px;
+    }
+}
+
+@media (max-width: 430px) {
+    #content {
+        padding: 8px 2vw 16px 2vw;
+        border-radius: 6px;
+        margin-top: 20px;
+    }
+    .footer {
+        font-size: 0.88rem;
+        border-radius: 0 0 4px 4px;
+    }
+}
+
+/* Promoted listings */
+.promoted {
+    border: 2px solid gold;
+    background: #fffef0;
+}
+
+.promoted-badge {
+    background: gold;
+    color: #333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+}

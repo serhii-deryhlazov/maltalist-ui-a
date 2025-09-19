@@ -1,0 +1,261 @@
+#listing-details {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.listing-images {
+  width: 50%;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.carousel-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-main img#carousel-big-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+}
+
+.no-image {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  background: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.carousel-thumbnails {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.carousel-thumb {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+.carousel-thumb.selected {
+  border: 2px solid #034d88;
+}
+
+.listing-details-info {
+  width: 50%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.07);
+}
+
+.listing-details-info h2 {
+  color: #004779;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #004779;
+  margin-bottom: 15px;
+}
+
+.category, .location {
+  margin: 8px 0;
+  color: #555;
+}
+
+.description {
+  margin: 20px 0;
+  line-height: 1.6;
+  color: #333;
+}
+
+.listing-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+}
+
+.listing-meta div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.promoted-badge {
+  background: gold;
+  color: #333;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.listing-buttons {
+  margin: 25px 0;
+  display: flex;
+  gap: 15px;
+}
+
+.owner-buttons {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+#listing-contact {
+  border: 2px solid #004779ce;
+  color: #004779ce;
+  background-color: transparent;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#listing-contact:hover {
+  border-color: #004779;
+  color: #004779;
+  background-color: #f8f9fa;
+}
+
+#edit-listing-btn {
+  border: 2px solid #e67b00d7;
+  color: #e67b00d7;
+  background: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+#edit-listing-btn:hover {
+  background-color: #e67b00dd;
+  color: #fefefe;
+  border-color: transparent;
+}
+
+#delete-listing-btn {
+  border: 2px solid rgb(126, 0, 0);
+  color: rgb(126, 0, 0);
+  background: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+#delete-listing-btn:hover {
+  background-color: rgb(126, 0, 0, 0.8);
+  color: #fefefe;
+  border-color: transparent;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 6px;
+  margin-left: -2px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: #666;
+  font-size: 14px;
+  vertical-align: sub;
+}
+
+.copy-btn:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.copy-btn .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+@media (max-width: 700px) {
+  #listing-details {
+    flex-flow: column nowrap;
+    gap: 18px;
+  }
+
+  .listing-images, .listing-details-info {
+    width: 100%;
+  }
+
+  .carousel-main img#carousel-big-img {
+    max-width: 100%;
+  }
+
+  .listing-buttons {
+    flex-direction: column;
+  }
+
+  .owner-buttons {
+    flex-direction: column;
+  }
+}
