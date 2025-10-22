@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Listing {
   id: number;
@@ -21,8 +22,8 @@ export interface ListingSummary {
   title: string;
   price: number;
   category: string;
-  location: string;
-  picture1: string | null;
+  location: string | null;
+  picture: string | null;
   createdAt: string;
   isPromoted?: boolean;
 }
@@ -104,5 +105,24 @@ export class ListingService {
 
   getListingPictures(id: string): Observable<string[]> {
     return this.http.get<string[]>(`/pictures/${id}`);
+  }
+
+  createPromotion(request: { listingId: number; expirationDate: string; category: string }): Observable<any> {
+    return this.http.post('/Promotions', request);
+  }
+
+  getPromotedListings(category: string): Observable<ListingSummary[]> {
+    return this.http.get<Listing[]>(`/Promotions/promoted/${category}`).pipe(
+      map(listings => listings.map(l => ({
+        id: l.id,
+        title: l.title,
+        price: l.price,
+        category: l.category,
+        location: l.location,
+        picture: l.picture1,
+        createdAt: l.createdAt,
+        isPromoted: true
+      } as ListingSummary)))
+    );
   }
 }

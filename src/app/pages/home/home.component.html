@@ -21,7 +21,7 @@
   </div>
 
   <div id="sort-full">
-    <select id="location-select" [(ngModel)]="selectedLocation" (change)="onLocationChange()">
+    <select id="location-select" *ngIf="selectedSort === 'distance'" [(ngModel)]="selectedLocation" (change)="onLocationChange()">
       <option value="">Select a city</option>
       <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
     </select>
@@ -39,21 +39,28 @@
     <div *ngIf="!loading && listings.length === 0" class="no-listings">No listings found</div>
     <ul *ngIf="!loading && listings.length > 0">
       <li *ngFor="let listing of listings" (click)="navigateToListing(listing.id)" [class.promoted]="listing.isPromoted">
-        <div>
-          <img [src]="getMainImage(listing)" [alt]="listing.title" *ngIf="listing.picture1">
-          <div *ngIf="!listing.picture1" class="no-image">No Image</div>
-          <h3>{{ listing.title }}</h3>
-          <p class="price">€{{ listing.price }}</p>
-          <p class="category">{{ listing.category }}</p>
-          <p class="location">{{ listing.location }}</p>
-          <div class="listing-meta">
+        <img [src]="getMainImage(listing)" [alt]="listing.title" *ngIf="listing.picture">
+        <div *ngIf="!listing.picture" class="no-image">No Image</div>
+        <div class="listing-meta">
+          <div class="title-price">
+            <h3>{{ listing.title }}</h3>
+            <h4>{{ formatPrice(listing.price) }}€</h4>
+          </div>
+          <div class="category-location">
+            <div>
+              {{  listing.category }}
+            </div>
+            <div>
+              <span class="material-symbols-outlined">location_on</span>
+              {{ listing.location }}
+            </div>
             <div>
               <span class="material-symbols-outlined">schedule</span>
               {{ formatDate(listing.createdAt) }}
             </div>
           </div>
-          <div *ngIf="listing.isPromoted" class="promoted-badge">Promoted</div>
         </div>
+        <div *ngIf="listing.isPromoted" class="promoted-badge">Promoted</div>
       </li>
     </ul>
   </div>

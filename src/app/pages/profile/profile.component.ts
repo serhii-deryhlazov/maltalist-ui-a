@@ -78,6 +78,6 @@ export class ProfileComponent implements OnInit {
   }
 
   getMainImage(listing: ListingSummary): string {
-    return listing.picture1 || '/assets/img/placeholder.png';
+    return listing.picture || '/assets/img/placeholder.png';
   }
 }

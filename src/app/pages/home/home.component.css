@@ -7,20 +7,18 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 20px;
 }
 
 #filter-container {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   align-items: center;
   flex-wrap: wrap;
 }
 
 .filter-option {
   cursor: pointer;
-  padding: 5px 12px;
+  padding: 5px 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   display: flex;
@@ -44,11 +42,13 @@
 }
 
 #search {
-  width: 250px;
+  width: 267px;
   padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
   font-size: 1rem;
+  height: 1rem;
   outline: none;
 }
 
@@ -60,7 +60,7 @@
 
 #sort-full select {
   padding: 8px 10px;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 6px;
   font-size: 1rem;
   outline: none;
@@ -80,6 +80,7 @@
 }
 
 #listing-list li {
+  padding-bottom: 10px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   display: flex;
@@ -92,10 +93,6 @@
 
 #listing-list li:hover {
   box-shadow: 0 6px 24px rgba(0,0,0,0.10);
-}
-
-#listing-list li div {
-  padding: 11px 20px;
 }
 
 #listing-list img {
@@ -137,17 +134,35 @@
 
 .listing-meta {
   display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  width: 97%;
+  flex-flow: column;
+}
+.listing-meta .category-location, .listing-meta .title-price {
+  display: flex;
+  width: 90%;
   justify-content: space-between;
-  font-size: 0.9rem;
-  color: #666;
-  padding: 10px 0 !important;
+  gap: 20px;
+  align-items: anchor-center;
+}
+.listing-meta div h4, .listing-meta div h3{
+  margin: 0 !important;
 }
 
-.listing-meta div {
+.listing-meta div h4{
+  font-size: 16px;
+  color: #004778;
+}
+
+.category-location, .category-location div span {
+  font-size: 14px;
+}
+
+.category-location div{
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 0 !important;
 }
 
 .pagination {
@@ -222,6 +237,10 @@
 
   #search {
     width: 95%;
+  }
+
+  #search-bar {
+    padding-right: 10px;
   }
 
   #sort-full select {

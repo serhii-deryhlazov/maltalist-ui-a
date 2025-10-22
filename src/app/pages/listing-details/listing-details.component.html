@@ -6,10 +6,19 @@
           id="carousel-big-img"
           [src]="currentImage"
           alt="Listing image"
-          *ngIf="listing.picture1">
-        <div *ngIf="!listing.picture1" class="no-image">
+          *ngIf="currentImage !== '/assets/img/placeholder.png'">
+        <div *ngIf="currentImage === '/assets/img/placeholder.png'" class="no-image">
           No images available
         </div>
+      </div>
+      <div class="carousel-thumbnails" *ngIf="pictures.length > 1">
+        <img
+          *ngFor="let pic of pictures; let i = index"
+          [src]="pic"
+          class="carousel-thumb"
+          [class.selected]="i === currentImageIndex"
+          (click)="selectImage(i)"
+          alt="Thumbnail {{ i + 1 }}">
       </div>
     </div>
   </div>
@@ -47,6 +56,22 @@
           <span class="material-symbols-outlined">delete</span>
           Delete Listing
         </button>
+        <button id="promote-listing-btn" (click)="promoteListing()">
+          <span class="material-symbols-outlined">campaign</span>
+          Promote Listing
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="showPromoteModal" class="modal">
+      <div class="modal-content">
+        <h3>Promote Listing</h3>
+        <select [(ngModel)]="selectedType">
+          <option value="week">1 Week - 2 EUR</option>
+          <option value="month">1 Month - 5 EUR</option>
+        </select>
+        <button (click)="confirmPromotion()">Confirm & Pay</button>
+        <button (click)="cancelPromotion()">Cancel</button>
       </div>
     </div>
 

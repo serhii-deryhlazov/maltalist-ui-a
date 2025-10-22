@@ -23,6 +23,7 @@
       <ul *ngIf="userListings.length > 0; else noListings">
         <li *ngFor="let listing of userListings" class="profile-listing">
           <img [src]="getMainImage(listing)" [alt]="listing.title" (click)="navigateToListing(listing.id)">
+          <div *ngIf="!listing.picture" class="no-image">No Image</div>
           <div class="listing-info">
             <h3 (click)="navigateToListing(listing.id)" class="profile-listing-link">{{ listing.title }}</h3>
             <p>€{{ listing.price }}</p>

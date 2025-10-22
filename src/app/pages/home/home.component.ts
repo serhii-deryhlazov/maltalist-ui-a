@@ -88,6 +88,9 @@ export class HomeComponent implements OnInit {
 
   onSortChange() {
     this.currentPage = 1;
+    if (this.selectedSort !== 'distance') {
+      this.selectedLocation = '';
+    }
     this.loadListings();
   }
 
@@ -100,24 +103,78 @@ export class HomeComponent implements OnInit {
 
   loadListings() {
     this.loading = true;
-    this.listingService.getAllListings({
-      page: this.currentPage,
-      pageSize: this.pageSize,
-      category: this.selectedCategory,
-      location: this.selectedLocation,
-      search: this.searchQuery,
-      sort: this.selectedSort
-    }).subscribe({
-      next: (response: GetAllListingsResponse) => {
-        this.listings = response.listings;
-        this.totalPages = Math.ceil(response.totalNumber / this.pageSize);
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error loading listings:', error);
-        this.loading = false;
-      }
-    });
+    if (this.selectedCategory) {
+      // Fetch promoted listings first
+      this.listingService.getPromotedListings(this.selectedCategory).subscribe({
+        next: (promoted) => {
+          // Mark as promoted (already done in service)
+          // promoted.forEach(p => p.isPromoted = true);
+          // Then fetch all listings
+          this.listingService.getAllListings({
+            page: this.currentPage,
+            pageSize: this.pageSize,
+            category: this.selectedCategory,
+            location: this.selectedLocation,
+            search: this.searchQuery,
+            sort: this.selectedSort
+          }).subscribe({
+            next: (response: GetAllListingsResponse) => {
+              const promotedIds = new Set(promoted.map(p => p.id));
+              const nonPromoted = response.listings.filter(l => !promotedIds.has(l.id));
+              this.listings = [...promoted, ...nonPromoted];
+              this.totalPages = Math.ceil(response.totalNumber / this.pageSize);
+              this.loading = false;
+            },
+            error: (error) => {
+              console.error('Error loading listings:', error);
+              this.loading = false;
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Error loading promoted listings:', err);
+          // Fallback to loading all listings
+          this.listingService.getAllListings({
+            page: this.currentPage,
+            pageSize: this.pageSize,
+            category: this.selectedCategory,
+            location: this.selectedLocation,
+            search: this.searchQuery,
+            sort: this.selectedSort
+          }).subscribe({
+            next: (response: GetAllListingsResponse) => {
+              this.listings = response.listings;
+              this.totalPages = Math.ceil(response.totalNumber / this.pageSize);
+              this.loading = false;
+            },
+            error: (error) => {
+              console.error('Error loading listings:', error);
+              this.loading = false;
+            }
+          });
+        }
+      });
+    } else {
+      // No category selected, load all listings
+      this.listingService.getAllListings({
+        page: this.currentPage,
+        pageSize: this.pageSize,
+        category: this.selectedCategory,
+        location: this.selectedLocation,
+        search: this.searchQuery,
+        sort: this.selectedSort
+      }).subscribe({
+        next: (response: GetAllListingsResponse) => {
+          this.listings = response.listings;
+          this.totalPages = Math.ceil(response.totalNumber / this.pageSize);
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Error loading listings:', error);
+          this.loading = false;
+        }
+      });
+    }
   }
 
   navigateToListing(id: number) {
@@ -125,11 +182,15 @@ export class HomeComponent implements OnInit {
   }
 
   getMainImage(listing: ListingSummary): string {
-    return listing.picture1 || '';
+    return listing.picture || '';
   }
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString();
+  }
+
+  formatPrice(price: number): string {
+    return price.toLocaleString();
   }
 }

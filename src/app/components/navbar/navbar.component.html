@@ -3,7 +3,7 @@
     <a routerLink="/" class="logo-link">
       <img src="/assets/img/logo.png" alt="MaltaListings" class="logo">
     </a>
-    <a routerLink="/profile" *ngIf="currentUser; else loginButton" class="profile-link">
+    <a [routerLink]="['/profile', currentUser.id]" *ngIf="currentUser; else loginButton" class="profile-link" routerLinkActive="active">
       <span class="material-symbols-outlined">account_circle</span>
       My Profile
     </a>
