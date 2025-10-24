@@ -36,8 +36,8 @@ export class AuthService {
   }
 
   handleGoogleSignIn(response: any): Observable<User> {
-    return this.http.post<User>(`/auth/google`, {
-      credential: response.credential
+    return this.http.post<User>(`/GoogleAuth/login`, {
+      idToken: response.credential
     }).pipe(
       tap(user => {
         if (user && user.id) {
